@@ -3,19 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use App\Models\Produk;
 use App\Models\Kategori;
-use App\Models\User;
 
 class AdminController extends Controller
 {
-    public function dashboard()
+    public function index()
     {
-        return view('admin.dashboard', [
-            'total_produk' => Produk::count(),
-            'total_kategori' => Kategori::count(),
-            'total_user' => User::count(),
-            'user' => auth()->user()
-        ]);
+        $user = Auth::user(); // Mendapatkan data user yang login
+        $jumlahProduk = Produk::count(); // Menghitung jumlah produk
+        $jumlahKategori = Kategori::count(); // Menghitung jumlah kategori
+        $jumlahUser = User::count(); // Menghitung jumlah user
+
+        return view('admin.dashboard', compact('user', 'jumlahProduk', 'jumlahKategori', 'jumlahUser'));
     }
 }
