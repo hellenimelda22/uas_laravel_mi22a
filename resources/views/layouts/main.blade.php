@@ -17,12 +17,11 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/katalog') }}">Katalog</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('katalog') }}">Katalog</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/kategori') }}">Kategori</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/tentang') }}">Tentang</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/user') }}">User</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/keluar') }}">Logout</a></li>
                     <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
                 </ul>
             </div>

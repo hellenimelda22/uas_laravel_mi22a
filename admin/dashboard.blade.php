@@ -11,7 +11,7 @@
             
             <div class="row mt-4">
                 <div class="col-md-4">
-                    <div class="card text-white bg-primary">
+                    <div class="card bg-dark text-white shadow">
                         <div class="card-body">
                             <h5 class="card-title">Total Produk</h5>
                             <p class="card-text fs-3">{{ $jumlahProduk }}</p>
@@ -20,7 +20,7 @@
                 </div>
                 
                 <div class="col-md-4">
-                    <div class="card text-white bg-success">
+                    <div class="card bg-secondary text-white shadow">
                         <div class="card-body">
                             <h5 class="card-title">Total Kategori</h5>
                             <p class="card-text fs-3">{{ $jumlahKategori }}</p>
@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    <div class="card text-white bg-danger">
+                    <div class="card bg-light text-dark shadow">
                         <div class="card-body">
                             <h5 class="card-title">Total User</h5>
                             <p class="card-text fs-3">{{ $jumlahUser }}</p>
@@ -38,8 +38,12 @@
                 </div>
             </div>
 
+            <!-- Button Keluar Berwarna Hitam -->
             <div class="text-center mt-4">
-                <a href="{{ route('logout') }}" class="btn btn-danger">Keluar</a>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-dark px-4 py-2">Keluar</button>
+                </form>
             </div>
         </div>
     </div>

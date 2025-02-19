@@ -5,36 +5,89 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Produk;
 use App\Models\Kategori;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProdukController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth'); // Hanya bisa diakses setelah login
+    }
+
+
     public function index()
     {
-        $produk = Produk::with('kategori')->get();
-        return view('produk.index', compact('produk'));
+        $produks = Produk::all(); // Ambil semua produk dari database
+        return view('produk.index', compact('produks')); // Kirim data ke view
+    }
+    
+
+    public function create()
+    {
+        $kategori = Kategori::all();
+        return view('produk.create', compact('kategori'));
     }
 
     public function store(Request $request)
-    {
-        $data = $request->validate([
-            'kode_produk' => 'required|string|max:10',
-            'nama_produk' => 'required|string|max:50',
-            'kategori_id' => 'required|exists:kategori,id',
-            'deskripsi' => 'required|string',
-            'gambar' => 'image|nullable|max:2048'
-        ]);
+{
+    $request->validate([
+        'kode_produk' => 'required|unique:produk,kode_produk',
+        'nama_produk' => 'required',
+        'kategori_id' => 'required',
+        'deskripsi' => 'nullable',
+        'gambar' => 'nullable|image|max:2048'
+    ]);
 
-        if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request->file('gambar')->store('produk', 'public');
-        }
+    Produk::create([
+        'kode_produk' => $request->kode_produk,
+        'nama_produk' => $request->nama_produk,
+        'kategori_id' => $request->kategori_id,
+        'deskripsi' => $request->deskripsi,
+        'gambar' => $request->file('gambar') ? $request->file('gambar')->store('produk') : null
+    ]);
 
-        Produk::create($data);
-        return redirect()->route('produk.index');
+    return redirect()->route('produk.index')->with('success', 'Produk berhasil ditambahkan!');
+}
+
+    public function edit($id)
+{
+    $produk = Produk::findOrFail($id);
+    $kategori = Kategori::all(); // Ambil semua kategori untuk dropdown
+
+    return view('produk.edit', compact('produk', 'kategori'));
+}
+
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'nama_produk' => 'required',
+        'deskripsi' => 'required',
+        'kategori_id' => 'required',
+        'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+    ]);
+
+    $produk = Produk::findOrFail($id);
+    $produk->nama_produk = $request->nama_produk;
+    $produk->deskripsi = $request->deskripsi;
+    $produk->kategori_id = $request->kategori_id;
+
+    // Jika ada gambar baru, simpan ke storage
+    if ($request->hasFile('gambar')) {
+        $gambarPath = $request->file('gambar')->store('produk', 'public');
+        $produk->gambar = $gambarPath;
     }
 
-    public function destroy(Produk $produk)
-    {
-        $produk->delete();
-        return redirect()->route('produk.index');
-    }
+    $produk->save();
+
+    return redirect()->route('produk.index')->with('success', 'Produk berhasil diperbarui!');
+}
+public function destroy($id)
+{
+    $produk = Produk::findOrFail($id); // Cari produk berdasarkan ID
+    $produk->delete(); // Hapus produk dari database
+
+    return redirect()->route('produk.index')->with('success', 'Produk berhasil dihapus!');
+}
+
 }

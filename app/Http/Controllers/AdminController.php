@@ -11,7 +11,7 @@ use App\Models\Kategori;
 class AdminController extends Controller
 {
     public function index()
-    {
+    { 
         $user = Auth::user(); // Mendapatkan data user yang login
         $jumlahProduk = Produk::count(); // Menghitung jumlah produk
         $jumlahKategori = Kategori::count(); // Menghitung jumlah kategori
