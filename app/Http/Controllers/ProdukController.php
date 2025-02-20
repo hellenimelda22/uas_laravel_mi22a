@@ -82,6 +82,7 @@ public function update(Request $request, $id)
 
     return redirect()->route('produk.index')->with('success', 'Produk berhasil diperbarui!');
 }
+
 public function destroy($id)
 {
     $produk = Produk::findOrFail($id); // Cari produk berdasarkan ID
