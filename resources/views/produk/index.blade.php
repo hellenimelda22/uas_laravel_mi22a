@@ -22,21 +22,21 @@
     @endauth
 
     <!-- Grid Katalog Produk -->
-    <div class="row row-cols-2 row-cols-md-5 g-3">
+    <div class="row row-cols-2 row-cols-md-5 g-3"> 
         @foreach ($produks as $produk)
             <div class="col">
                 <div class="card product-card border-0 shadow-sm">
                     <!-- Gambar Produk -->
                     <a href="#" class="text-decoration-none">
                         @if ($produk->gambar)
-                        <img src="{{ asset('storage/' . $produk->gambar) }}" alt="{{ $produk->nama_produk }}" class="card-img-top">
+                        <img src="{{ asset('storage/'. $produk->gambar) }}" alt="{{ $produk->nama_produk }}" class="card-img-top">
                         @else
-                            <img src="images/default.jpg" alt="Default Image" class="card-img-top">
-                        @endif
+                            <img src="{{ asset('images/default.jpg') }}" alt="Default Image" class="card-img-top">
+                        @endif
                     </a>
                     <div class="card-body p-2">
-                        <h6 class="card-title fw-bold text-dark text-truncate">{{ $produk->nama_produk }}</h6>
-                        <p class="text-muted small text-truncate">{{ Str::limit($produk->deskripsi, 40) }}</p>
+                        <h6 class="card-title fw-bold text-dark">{{ $produk->nama_produk }}</h6>
+                        <p class="text-muted small">{{ Str::limit($produk->deskripsi, 40) }}</p>
 
                         <!-- Tombol Edit & Hapus (Hanya Admin) -->
                         @auth
@@ -57,27 +57,32 @@
     </div>
 </div>
 
-<!-- Styling Katalog ala Shopee -->
+<!-- Styling Grid Katalog -->
 <style>
+    /* Menyesuaikan tinggi grid */
     .product-card {
-        border-radius: 10px;
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s;
+        border-radius: 8px;
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s;
         background: #fff;
+        min-height: 500px; /* Menyesuaikan tinggi card */
     }
+
     .product-card:hover {
-        transform: scale(1.03);
-        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        transform: scale(1.02);
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
     }
+
+    /* Menyesuaikan tinggi gambar agar tidak kepotong */
     .card-img-top {
         width: 100%;
-        height: 180px;
+        height: 350px; /* Ukuran gambar lebih kecil */
         object-fit: cover;
-        border-radius: 10px 10px 0 0;
+        border-radius: 8px 8px 0 0;
     }
-    .text-truncate {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+
+    /* Mengurangi tinggi body agar tetap proporsional */
+    .card-body {
+        padding: 10px;
     }
 </style>
 @endsection

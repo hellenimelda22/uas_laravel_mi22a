@@ -22,17 +22,16 @@
         <!-- Anggota Tim -->
         @php
         $members = [
-    ["nama" => "Helen Imeldasari", "nim" => "2257401016", "kelas" => "MI22A", "github" => "https://github.com/hellenimelda22", "gambar" => "helen.jpg", "kontribusi" => "Pengembangan Website"],
-    ["nama" => "Titi Safitri", "nim" => "2257401022", "kelas" => "MI22A", "github" => "https://github.com/Titisafitri", "gambar" => "titi.jpg", "kontribusi" => "Pengembangan Website"]
-    ];
-
+                ["nama" => "Helen Imeldasari", "nim" => "2257401016", "kelas" => "MI22A", "github" => "https://github.com/hellenimelda22", "gambar" => "/images/helen.jpg", "kontribusi" => "Pengembangan Website"],
+                ["nama" => "Titi Safitri", "nim" => "2257401022", "kelas" => "MI22A", "github" => "https://github.com/username", "gambar" => "/images/titi.jpg", "kontribusi" => "Pengembangan Website"]
+                   ];
         @endphp
         @foreach ($members as $member)
         <div class="col-md-6 mb-4">
             <div class="card team-card text-center">
                 <div class="card-body">
                     <div class="profile-container">
-                    <img src="{{ asset('images/' . $member['gambar']) }}" class="profile-img" alt="{{ $member['nama'] }}">
+                    <img src="{{ 'images/' . $member['gambar'] }}" class="profile-img" alt="{{ $member['nama'] }}">
                     </div>
                     <h5 class="fw-bold mt-3">{{ $member['nama'] }}</h5>
                     <p class="text-muted">{{ $member['kelas'] }} | {{ $member['nim'] }}</p>
@@ -42,6 +41,8 @@
             </div>
         </div>
         @endforeach
+    </div>
+</div>
 
 <!-- Styling -->
 <style>

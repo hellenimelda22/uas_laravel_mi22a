@@ -43,7 +43,7 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label fw-semibold">Upload Gambar (Opsional)</label>
+            <label class="form-label fw-semibold">Upload Gambar </label>
             <input type="file" class="form-control" name="gambar">
         </div>
 

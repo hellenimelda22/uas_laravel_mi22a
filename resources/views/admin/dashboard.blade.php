@@ -6,7 +6,7 @@
 <div class="container mt-5">
     <!-- Hero Section -->
     <div class="hero-section text-center text-white">
-        <h1 class="fw-bold fade-in">Dashboard Admin</h1>
+        <h1 class="fw-bold fade-in"> 📊 Dashboard Admin</h1>
         <p class="fade-in">Selamat datang, <strong>{{ $user->name }}</strong></p>
     </div>
 
